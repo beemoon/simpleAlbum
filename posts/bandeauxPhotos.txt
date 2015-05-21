@@ -1,0 +1,5 @@
+assets/img/bandeau1.jpg
+assets/img/bandeau2.jpg
+assets/img/bandeau3.jpg
+assets/img/bandeau4.jpg
+assets/img/bandeau5.jpg

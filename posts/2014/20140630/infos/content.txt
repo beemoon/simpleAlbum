@@ -1,0 +1,5 @@
+Titre = "30 juin 2014"
+
+Content = "<br>"
+
+Photos = "img_6653.jpg,img_6654.jpg,img_6657.jpg,img_6670.jpg,img_6676.jpg,img_6680.jpg,img_6768.jpg"

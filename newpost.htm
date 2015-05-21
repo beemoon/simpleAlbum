@@ -1,0 +1,152 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-ie"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+  <title>New post</title>
+
+  <meta name="description" value="" />
+  <meta name="keywords" value="" />
+
+  <link rel="stylesheet" href="thirdspart/upload/general.css" />
+  <link rel="stylesheet" href="thirdspart/upload/dropzone.css" />
+
+  <style type='text/css'>
+    .dropzone .textPost{clear: inherit;}
+    .slideTogglebox{
+      padding:8px 8px 0 8px;
+      margin:16px 16px -20px 16px;
+    }
+      
+    .clear{
+      clear:both;
+    }
+    
+    #posttitle{
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+      font-size: 16px;
+      border: 1px solid #F0F0F0;
+      padding: 3px;
+      margin-left: 15px;
+      color:#BFB7B7;
+    }
+  </style>
+  
+  <script src="thirdspart/upload/dropzone.js"></script>
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <script type="text/javascript">  
+  Dropzone.options.uploadArea = {
+    acceptedMimeTypes:"image/jpeg,video/x-flv",
+    resizedWidth:1024,
+    resizedHeight:768,
+    init: function() {
+    this.on("complete", function() {
+      if (this.getQueuedFiles().length == 0 && this.getUploadingFiles().length == 0) {
+        document.getElementById('slideToggle').style.display = 'inline';
+        document.getElementById('submitPhoto').style.display = 'inline';
+      }
+    });
+    }
+  };
+  </script>
+
+  <script type="text/javascript">
+    // Font loading from typekit
+    (function() {
+      var config = {
+        kitId: 'hpm5kxd',
+        scriptTimeout: 3000
+      };
+      var h=document.getElementsByTagName("html")[0];h.className+=" wf-loading";var t=setTimeout(function(){h.className=h.className.replace(/(\s|^)wf-loading(\s|$)/g," ");h.className+=" wf-inactive"},config.scriptTimeout);var tk=document.createElement("script"),d=false;tk.src='//use.typekit.net/'+config.kitId+'.js';tk.type="text/javascript";tk.async="true";tk.onload=tk.onreadystatechange=function(){var a=this.readyState;if(d||a&&a!="complete"&&a!="loaded")return;d=true;clearTimeout(t);try{Typekit.load(config)}catch(b){}};var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(tk,s)
+    })();
+  </script>
+  
+<script type="text/javascript" src="assets/js/jquery/jquery-1.10.1.min.js"></script>
+<script src="thirdspart/nicEdit/nicEdit.js" type="text/javascript"></script>
+<script type="text/javascript">
+  function onBlur(el) {
+    if (el.value == '') {
+        el.value = el.defaultValue;
+        document.getElementById('posttitle').style.color = '#BFB7B7';
+    }else{
+      document.getElementById('posttitle').style.color = '#000000';
+    }
+    document.getElementById('posttitle').style.border = '1px solid #F0F0F0';
+}
+
+function onFocus(el) {
+    if (el.value == el.defaultValue) {
+        el.value = '';
+    }
+    document.getElementById('posttitle').style.border = '1px solid #000000';
+    document.getElementById('posttitle').style.color = '#000000';
+}
+
+bkLib.onDomLoaded(function() {
+	new nicEditor({
+		width : 100,
+		iconsPath  : 'thirdspart/nicEdit/nicEditorIcons.gif',
+		fullPanel : false,
+		buttonList : ['bold','italic','underline','left','center','right','justify','ol','ul','hr','indent','outdent','subscript','superscript','fontFormat','link','unlink'],
+		      }).panelInstance('postText');
+	
+	$('.slideTogglebox').hide();
+	$("#slideToggle").click(function () {
+	   $('.slideTogglebox').slideToggle();
+	   
+        var ct = $(this).text();
+        if (ct == "Add comment") {
+                // do something
+                $(this).text("Hide editor");
+        } else {
+                // do something
+                $(this).text("Add comment");
+        };
+
+	   });
+});
+</script>
+
+</head>
+<body style="overflow-y: scroll;">
+  
+<article>
+<div style="position: relative;top: -12px;left: 15px;float: left;z-index: 999;"><input type="text" id="posttitle" onblur="document.getElementById('titre').value=this.value;onBlur(this)" onfocus="onFocus(this)" value="    Post title "></div>
+  
+<div id="dropzone">
+
+  <form action="assets/upload.php" class="dropzone clickable" id="upload-area">
+    <div class="default message"><span>Drop files here to upload</span></div>
+    <div class="fallback"><input name="file" type="file" multiple /></div>  
+  </form>
+  <p style="position: relative;top: -15px;left: -3px;float: right;z-index: 999;">Upload pictures (*.jpg, *.jpeg) or/and videos (*.flv)</p>
+
+  <div class="slideTogglebox">
+	<form id="post" action="assets/createPost.php" method="post">
+	    <textarea id="postText" name="postText" style="height: 200px; width: 100%;"></textarea><br/>
+            <input type="hidden" id="titre" name="titre">
+	</form>
+    </div>
+  
+  <br/>
+  <button id=slideToggle style="display:none;">Add comment</button>&nbsp;<input type=submit id="submitPhoto" name="submit" value="Save" style="display:none;" onclick="nicEditors.findEditor('postText').saveContent();document.getElementById('post').submit();">
+  <br/>
+  
+    
+
+</div>
+</article>
+
+</body>
+</html>
